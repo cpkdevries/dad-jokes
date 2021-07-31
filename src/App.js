@@ -6,8 +6,8 @@ function App() {
   const [dadJoke, setDadJoke] = useState("");
   const [existingJokeIds, setExistingJokeIds] = useState([]);
 
-  const updateDadJoke = () => {
-    fetchDadJoke(existingJokeIds).then((result) => {
+  const updateDadJoke = async () => {
+    await fetchDadJoke(existingJokeIds).then((result) => {
       setDadJoke(result.joke);
       setExistingJokeIds([...existingJokeIds, result.id]);
     });
