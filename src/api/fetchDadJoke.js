@@ -1,11 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 
-export default async function fetchDadJoke() {
-  return await axios.get('https://icanhazdadjoke.com/', {headers: {Accept: 'application/json'}})
-                          .then(response => {
-                            return response.data.joke;
-                          })
-                          .catch(error => {
-                            console.error(error);
-                          });
+export default async function fetchDadJoke(existingJokeIds) {
+  return await axios
+    .get("https://icanhazdadjoke.com/", {
+      headers: { Accept: "application/json" },
+    })
+    .then((response) => {
+      if (existingJokeIds.includes(response.data.id)) {
+        fetchDadJoke(existingJokeIds);
+      }
+
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }

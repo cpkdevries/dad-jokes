@@ -4,22 +4,25 @@ import fetchDadJoke from "./api/fetchDadJoke";
 
 function App() {
   const [dadJoke, setDadJoke] = useState("");
+  const [existingJokeIds, setExistingJokeIds] = useState([]);
 
   const updateDadJoke = () => {
-    fetchDadJoke().then((result) => {
-      setDadJoke(result);
+    fetchDadJoke(existingJokeIds).then((result) => {
+      setDadJoke(result.joke);
+      setExistingJokeIds([...existingJokeIds, result.id]);
     });
   };
 
   useEffect(() => {
     updateDadJoke();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="App">
       <div className="App-header">
         {dadJoke}
-        <button class="App-button" onClick={updateDadJoke}>
+        <button className="App-button" onClick={updateDadJoke}>
           Give Me a New Joke!
         </button>
       </div>

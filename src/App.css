@@ -35,6 +35,7 @@
   cursor: pointer;
 }
 
-.App-button:active {
+.App-button:active,
+.App-button:focus {
   background-color: var(--button-active-color);
 }
