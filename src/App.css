@@ -1,6 +1,8 @@
 :root {
   --font-color: white;
+  --font-family: mono;
   --body-bg-color: #282c34;
+  --body-bg-color-darker: #282034;
   --button-bg-color: palegoldenrod;
   --button-font-color: black;
   --button-hover-color: goldenrod;
@@ -9,10 +11,12 @@
 
 .App {
   text-align: center;
+  font-family: var(--font-family);
 }
 
 .App-header {
   background-color: var(--body-bg-color);
+  padding: 0 20px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -38,4 +42,37 @@
 .App-button:active,
 .App-button:focus {
   background-color: var(--button-active-color);
+}
+
+.last-viewed {
+  width: 50%;
+}
+
+ul {
+  background-color: var(--body-bg-color-darker);
+  text-align: left;
+  list-style: none;
+  font-size: 14px;
+  padding: 20px;
+  border: 2px solid var(--button-hover-color);
+}
+
+@media screen and (max-width: 768px) {
+  .last-viewed {
+    width: 100%;
+  }
+}
+
+li {
+  margin-bottom: 15px;
+}
+
+.last-viewed {
+  text-align: left;
+  margin-top: 30px;
+}
+
+.last-viewed span {
+  font-size: calc(8px + 2vmin);
+  color: var(--button-hover-color);
 }
