@@ -4,22 +4,36 @@ import fetchDadJoke from "./api/fetchDadJoke";
 
 function App() {
   const [dadJoke, setDadJoke] = useState("");
-  const [viewedJokes, setViewedJokes] = useState([]);
+  const [viewedJokes, setViewedJokes] = useState(
+    localStorage.getItem("viewedJokes")
+      ? JSON.parse(localStorage.getItem("viewedJokes"))
+      : []
+  );
 
   const updateDadJoke = async () => {
     await fetchDadJoke(viewedJokes.map((joke) => joke.id)).then((result) => {
       setDadJoke(result.joke);
       const newJoke = {
-        id: result.id,
-        joke: result.joke,
-      };
+          id: result.id,
+          joke: result.joke,
+        },
+        lastTwenty = viewedJokes.slice(Math.max(viewedJokes.length - 20, 0));
 
-      setViewedJokes([...viewedJokes, newJoke]);
+      setViewedJokes([...lastTwenty, newJoke]);
+
+      localStorage.setItem(
+        "viewedJokes",
+        JSON.stringify([...lastTwenty, newJoke])
+      );
     });
   };
 
   useEffect(() => {
-    updateDadJoke();
+    if (viewedJokes.length > 0) {
+      setDadJoke(viewedJokes[viewedJokes.length - 1].joke);
+    } else {
+      updateDadJoke();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
