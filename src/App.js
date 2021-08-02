@@ -5,10 +5,9 @@ import fetchDadJoke from "./api/fetchDadJoke";
 function App() {
   const [dadJoke, setDadJoke] = useState("");
   const [viewedJokes, setViewedJokes] = useState([]);
-  console.log(viewedJokes);
 
   const updateDadJoke = async () => {
-    await fetchDadJoke(viewedJokes).then((result) => {
+    await fetchDadJoke(viewedJokes.map((joke) => joke.id)).then((result) => {
       setDadJoke(result.joke);
       const newJoke = {
         id: result.id,
@@ -32,7 +31,7 @@ function App() {
           Give Me a New Joke!
         </button>
         {viewedJokes.length > 1 && (
-          <div class="last-viewed">
+          <div className="last-viewed">
             <span>Last viewed jokes...</span>
             <ul>
               {viewedJokes

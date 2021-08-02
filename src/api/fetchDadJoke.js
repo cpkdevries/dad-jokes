@@ -6,6 +6,7 @@ export default async function fetchDadJoke(existingJokeIds) {
       headers: { Accept: "application/json" },
     })
     .then((response) => {
+      console.log(existingJokeIds);
       if (existingJokeIds.includes(response.data.id)) {
         fetchDadJoke(existingJokeIds);
       }
